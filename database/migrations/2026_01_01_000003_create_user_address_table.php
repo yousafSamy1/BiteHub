@@ -1,0 +1,23 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('user_addresses', function (Blueprint $table) {
+            $table->unsignedBigInteger('UserID');
+            $table->string('Address', 255);
+            $table->primary(['UserID', 'Address']);
+            $table->foreign('UserID')->references('UserID')->on('users')->onDelete('cascade')->onUpdate('cascade');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('user_addresses');
+    }
+};
